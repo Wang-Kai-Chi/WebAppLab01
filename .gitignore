@@ -1,0 +1,7 @@
+.sonarlint
+.metadata
+.classpath
+.project
+.settings
+.class
+target
