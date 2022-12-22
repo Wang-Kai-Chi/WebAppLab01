@@ -37,6 +37,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 			if(tx!=null) {
 				tx.rollback();
 			}
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
 		return memberBean;
@@ -55,6 +56,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 			if(tx != null) {
 				tx.rollback();
 			}
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
 		return memberBeans;
@@ -72,6 +74,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 			if(tx!=null) {
 				tx.rollback();
 			}
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
 	}
@@ -89,6 +92,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 			if(tx!=null) {
 				tx.rollback();
 			}
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
 	}
@@ -107,6 +111,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 			if(tx!=null) {
 				tx.rollback();
 			}
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
 		return exist;
@@ -125,6 +130,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 			if(tx!=null) {
 				tx.rollback();
 			}
+			e.printStackTrace();
 			throw new RuntimeException(e.getMessage());
 		}
 	}

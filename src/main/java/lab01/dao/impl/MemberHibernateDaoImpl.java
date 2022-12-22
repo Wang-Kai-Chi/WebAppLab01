@@ -7,6 +7,7 @@ import javax.persistence.NonUniqueResultException;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import lab01.dao.MemberDao;
 import lab01.model.MemberBean;
@@ -25,14 +26,13 @@ public class MemberHibernateDaoImpl implements MemberDao {
 		MemberBean result = null;
 		Session session = factory.getCurrentSession();
 		try {
-			result = session.createQuery(hql, MemberBean.class)
-							.setParameter("mId", id)
-							.getSingleResult();			
+			Query<MemberBean> query = session.createQuery(hql, MemberBean.class);
+			result = query.setParameter("mId", id).getSingleResult();			
 			
 		}catch(NonUniqueResultException e) {
-			
+			e.printStackTrace();
 		}catch(NoResultException e) {
-			
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -98,8 +98,7 @@ public class MemberHibernateDaoImpl implements MemberDao {
 		MemberBean temp= findById(memberBean.getId());
 		memberBean.setRegisterDate(temp.getRegisterDate());
 		Session session = factory.getCurrentSession();
-		session.evict(temp);
-		session.update(memberBean);
+		session.merge(memberBean);
 	}
 
 }
