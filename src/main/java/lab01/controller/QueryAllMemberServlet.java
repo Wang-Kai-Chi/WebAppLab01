@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
 import lab01.service.impl.MemberHibernateServiceImpl;
-import lab01.service.impl.MemberServiceImpl;
 
 @WebServlet("/lab01/queryMember.do")
 public class QueryAllMemberServlet extends HttpServlet {

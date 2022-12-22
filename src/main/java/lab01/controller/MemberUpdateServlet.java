@@ -16,7 +16,6 @@ import lab01.SystemUtils;
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
 import lab01.service.impl.MemberHibernateServiceImpl;
-import lab01.service.impl.MemberServiceImpl;
 
 @WebServlet("/lab01/updateMember.do")
 public class MemberUpdateServlet extends HttpServlet {
