@@ -17,8 +17,7 @@ public class HibernateUtils {
 					.configure("hibernate.cfg.xml").build();
 
 			Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-			SessionFactory sessionFactory = metadata.getSessionFactoryBuilder().build();
-			return sessionFactory;
+			return metadata.getSessionFactoryBuilder().build();
 
 		} catch (Throwable ex) {
 			System.err.println("新建SessionFactory失敗:" + ex.getMessage());

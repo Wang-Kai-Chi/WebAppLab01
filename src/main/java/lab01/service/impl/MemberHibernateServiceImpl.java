@@ -44,7 +44,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 	}
 	
 	public List<MemberBean> findAll() {
-		List<MemberBean> memberBeans = null;
+		List<MemberBean> memberBeans;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		
@@ -99,7 +99,7 @@ public class MemberHibernateServiceImpl implements MemberService {
 
 	@Override
 	public boolean existsByMemberId(String memberId) {
-		boolean exist = false;
+		boolean exist;
 		Session session = factory.getCurrentSession();
 		Transaction tx = null;
 		try {

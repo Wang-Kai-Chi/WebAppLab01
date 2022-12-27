@@ -15,90 +15,82 @@ import lab01.utils.HibernateUtils;
 
 public class MemberHibernateDaoImpl implements MemberDao {
 
-	private SessionFactory factory;
+    private SessionFactory factory;
 
-	public MemberHibernateDaoImpl() {
-		factory = HibernateUtils.getSessionFactory();
-	}
+    public MemberHibernateDaoImpl() {
+        factory = HibernateUtils.getSessionFactory();
+    }
 
-	public MemberBean findByMemberId(String id) {
-		String hql = "FROM MemberEntity m WHERE m.memberId = :mId";
-		MemberBean result = null;
-		Session session = factory.getCurrentSession();
-		try {
-			Query<MemberBean> query = session.createQuery(hql, MemberBean.class);
-			result = query.setParameter("mId", id).getSingleResult();			
-			
-		}catch(NonUniqueResultException e) {
-			e.printStackTrace();
-		}catch(NoResultException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+    public MemberBean findByMemberId(String id) {
+        String hql = "FROM MemberEntity m WHERE m.memberId = :mId";
+        MemberBean result = null;
+        Session session = factory.getCurrentSession();
+        try {
+            Query<MemberBean> query = session.createQuery(hql, MemberBean.class);
+            result = query.setParameter("mId", id).getSingleResult();
 
-	public List<MemberBean> findAll() {
-		String hql = "FROM MemberEntity";
-		Session session = factory.getCurrentSession();
-		
-		return session.createQuery(hql, MemberBean.class)
-						.getResultList();
-	}
+        } catch (NonUniqueResultException | NoResultException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 
-	public void save(MemberBean bean) {
-		Session session = factory.getCurrentSession();
-		session.save(bean);
+    public List<MemberBean> findAll() {
+        String hql = "FROM MemberEntity";
+        Session session = factory.getCurrentSession();
 
-	}
+        return session.createQuery(hql, MemberBean.class)
+                .getResultList();
+    }
 
-	public void deleteByMemberId(String memberId) {
-		String hql = "DELETE FROM MemberEntity m WHERE m.memberId = :mId";
-		Session session = factory.getCurrentSession();
-		
-		session.createQuery(hql)
-				.setParameter("mId", memberId)
-				.executeUpdate();		
-	}
+    public void save(MemberBean bean) {
+        Session session = factory.getCurrentSession();
+        session.save(bean);
 
-	@Override
-	public boolean existsByMemberId(String memberId) {
-		String hql = "FROM MemberEntity m WHERE m.memberId = :mId";
-		boolean exist = false;
-		
-		Session session = factory.getCurrentSession();
-		List<MemberBean> memberBeans = session.createQuery(hql, MemberBean.class)
-												.setParameter("mId", memberId)
-												.getResultList();
-		if(memberBeans.isEmpty()) {
-			exist = false;
-		}else {
-			exist = true;
-		}
-		return exist;
-	}
+    }
 
-	@Override
-	public MemberBean findById(Integer id) {
-		Session session = factory.getCurrentSession();
-		
-		return session.get(MemberBean.class, id);
-	}
+    public void deleteByMemberId(String memberId) {
+        String hql = "DELETE FROM MemberEntity m WHERE m.memberId = :mId";
+        Session session = factory.getCurrentSession();
 
-	@Override
-	public void deleteById(Integer id) {
-		Session session = factory.getCurrentSession();
-		MemberBean memberBean = session.get(MemberBean.class, id);
-		
-		memberBean.setId(id);
-		session.delete(memberBean);
-	}
+        session.createQuery(hql)
+                .setParameter("mId", memberId)
+                .executeUpdate();
+    }
 
-	@Override
-	public void update(MemberBean memberBean) {
-		MemberBean temp= findById(memberBean.getId());
-		memberBean.setRegisterDate(temp.getRegisterDate());
-		Session session = factory.getCurrentSession();
-		session.merge(memberBean);
-	}
+    @Override
+    public boolean existsByMemberId(String memberId) {
+        String hql = "FROM MemberEntity m WHERE m.memberId = :mId";
+
+        Session session = factory.getCurrentSession();
+        List<MemberBean> memberBeans = session.createQuery(hql, MemberBean.class)
+                .setParameter("mId", memberId)
+                .getResultList();
+        return !memberBeans.isEmpty();
+    }
+
+    @Override
+    public MemberBean findById(Integer id) {
+        Session session = factory.getCurrentSession();
+
+        return session.get(MemberBean.class, id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        Session session = factory.getCurrentSession();
+        MemberBean memberBean = session.get(MemberBean.class, id);
+
+        memberBean.setId(id);
+        session.delete(memberBean);
+    }
+
+    @Override
+    public void update(MemberBean memberBean) {
+        MemberBean temp = findById(memberBean.getId());
+        memberBean.setRegisterDate(temp.getRegisterDate());
+        Session session = factory.getCurrentSession();
+        session.merge(memberBean);
+    }
 
 }
