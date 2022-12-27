@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import lab01.SystemUtils;
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
-import lab01.service.impl.MemberHibernateServiceImpl;
 import lab01.service.impl.MemberServiceImpl;
 
 @WebServlet("/lab01/insertMember.do")
@@ -78,8 +77,7 @@ public class InsertMemberServlet extends HttpServlet {
 		// MemberBean 扮演封裝輸入資料的角色
 		MemberBean mb = new MemberBean(memberId, name, password, phone, date, ts, dWeight);
 		try {
-			//MemberService memberService = new MemberServiceImpl();
-			MemberService memberService = new MemberHibernateServiceImpl();
+			MemberService memberService = new MemberServiceImpl();
 			if (memberService.existsByMemberId(memberId)) {
 				throw new RuntimeException("帳號重複");
 			}

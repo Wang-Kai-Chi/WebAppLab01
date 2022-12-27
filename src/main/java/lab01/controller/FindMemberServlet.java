@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
-import lab01.service.impl.MemberHibernateServiceImpl;
 import lab01.service.impl.MemberServiceImpl;
 
 
@@ -23,9 +22,8 @@ public class FindMemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String key = request.getParameter("key");//注意大小寫
 		int id = Integer.parseInt(key);
-		//MemberService ms = new MemberServiceImpl();
+		MemberService ms = new MemberServiceImpl();
 		
-		MemberService ms = new MemberHibernateServiceImpl();
 		MemberBean mb = ms.findById(id);
 		
 		request.setAttribute("mb", mb);

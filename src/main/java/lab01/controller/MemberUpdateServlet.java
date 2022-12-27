@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import lab01.SystemUtils;
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
-import lab01.service.impl.MemberHibernateServiceImpl;
 import lab01.service.impl.MemberServiceImpl;
 
 @WebServlet("/lab01/updateMember.do")
@@ -30,8 +29,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		String modify = request.getParameter("finalDecision");
 		String sid = request.getParameter("id");
 		int id = Integer.parseInt(sid);
-		//MemberService ms = new MemberServiceImpl();
-		MemberService ms = new MemberHibernateServiceImpl();
+		MemberService ms = new MemberServiceImpl();
 		
 		if(modify.equalsIgnoreCase("DELETE")){
 			ms.deleteById(id);
