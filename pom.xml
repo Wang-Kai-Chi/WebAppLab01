@@ -49,6 +49,7 @@
 			<version>0.9.5.2</version>
 		</dependency>
 
+		<!--mysql connector-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -56,7 +57,7 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!--sqlserver connector		-->
+		<!--sqlserver connector-->
 		<!--<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
