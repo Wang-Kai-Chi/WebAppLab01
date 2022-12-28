@@ -2,10 +2,9 @@ package lab01.service.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lab01.dao.MemberDao;
 import lab01.model.MemberBean;
@@ -13,6 +12,7 @@ import lab01.service.MemberService;
 
 //The functions in this class encapsulate business logic
 @Service
+@Transactional
 public class MemberHibernateServiceImpl implements MemberService {
 	
 	private MemberDao memberDao;
@@ -24,114 +24,29 @@ public class MemberHibernateServiceImpl implements MemberService {
 	}
 
 	public MemberBean findById(Integer id) {
-		MemberBean memberBean;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		
-		try {
-			tx = session.beginTransaction();
-			memberBean = memberDao.findById(id);
-			tx.commit();
-			
-		}catch(Exception e) {
-			if(tx!=null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
-		return memberBean;
+		return memberDao.findById(id);
 	}
 	
 	public List<MemberBean> findAll() {
-		List<MemberBean> memberBeans;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		
-		try {
-			tx = session.beginTransaction();
-			memberBeans = memberDao.findAll();
-			tx.commit();
-		}catch(Exception e) {
-			if(tx != null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
-		return memberBeans;
+		return memberDao.findAll();
 	}
 
 	public void save(MemberBean bean) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			memberDao.save(bean);
-			tx.commit();
-			
-		}catch(Exception e) {
-			if(tx!=null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
+		memberDao.save(bean);
 	}
 
 
 	public void deleteById(Integer id) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			memberDao.deleteById(id);
-			tx.commit();
-			
-		}catch(Exception e) {
-			if(tx!=null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
+		memberDao.deleteById(id);
 	}
 
 	@Override
 	public boolean existsByMemberId(String memberId) {
-		boolean exist;
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			exist = memberDao.existsByMemberId(memberId);
-			tx.commit();
-			
-		}catch(Exception e) {
-			if(tx!=null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
-		return exist;
+		return memberDao.existsByMemberId(memberId);
 	}
 
 	@Override
 	public void update(MemberBean memberBean) {
-		Session session = factory.getCurrentSession();
-		Transaction tx = null;
-		try {
-			tx = session.beginTransaction();
-			memberDao.update(memberBean);
-			tx.commit();
-			
-		}catch(Exception e) {
-			if(tx!=null) {
-				tx.rollback();
-			}
-			e.printStackTrace();
-			throw new RuntimeException(e.getMessage());
-		}
+		memberDao.update(memberBean);
 	}
 }
