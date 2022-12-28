@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
-import lab01.service.impl.MemberHibernateServiceImpl;
 
 
 @WebServlet("/lab01/findMember.do")
@@ -22,9 +24,10 @@ public class FindMemberServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		String key = request.getParameter("key");//注意大小寫
 		int id = Integer.parseInt(key);
-		//MemberService ms = new MemberServiceImpl();
 		
-		MemberService ms = new MemberHibernateServiceImpl();
+		WebApplicationContext webApplicationContext = 
+				WebApplicationContextUtils.getWebApplicationContext(getServletContext());
+		MemberService ms = webApplicationContext.getBean(MemberService.class);
 		MemberBean mb = ms.findById(id);
 		
 		request.setAttribute("mb", mb);

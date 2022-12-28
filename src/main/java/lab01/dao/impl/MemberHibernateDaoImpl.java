@@ -8,17 +8,19 @@ import javax.persistence.NonUniqueResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
 import lab01.dao.MemberDao;
 import lab01.model.MemberBean;
-import lab01.utils.HibernateUtils;
 
+@Repository
 public class MemberHibernateDaoImpl implements MemberDao {
 
     private SessionFactory factory;
 
-    public MemberHibernateDaoImpl() {
-        factory = HibernateUtils.getSessionFactory();
+    //@Autowired
+    public MemberHibernateDaoImpl(SessionFactory factory) {
+        this.factory = factory;
     }
 
     public MemberBean findByMemberId(String id) {

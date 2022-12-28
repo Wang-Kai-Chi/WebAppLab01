@@ -5,23 +5,23 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Service;
 
 import lab01.dao.MemberDao;
-import lab01.dao.impl.MemberHibernateDaoImpl;
 import lab01.model.MemberBean;
 import lab01.service.MemberService;
-import lab01.utils.HibernateUtils;
 
 //The functions in this class encapsulate business logic
+@Service
 public class MemberHibernateServiceImpl implements MemberService {
 	
 	private MemberDao memberDao;
 	private SessionFactory factory;
-	
-	public MemberHibernateServiceImpl() {
-		memberDao = new MemberHibernateDaoImpl();
-		factory = HibernateUtils.getSessionFactory();
-	}	
+
+	public MemberHibernateServiceImpl(MemberDao memberDao, SessionFactory factory) {
+		this.memberDao = memberDao;
+		this.factory = factory;
+	}
 
 	public MemberBean findById(Integer id) {
 		MemberBean memberBean;
